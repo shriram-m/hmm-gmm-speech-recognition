@@ -1,55 +1,36 @@
-# HAL: Hello world
+# HMM-GMM based Speech Recognition on PSoC&trade; 6 MCU
 
-This code example demonstrates a simple UART communication by printing the "Hello world" message on a terminal and blinking an LED using a timer resource. The code example is based on HAL(Hardware Abstraction Layer) libraries.
+This example demonstrates a smart remote control application using a HMM-GMM based speech recognition system on PSoC&trade; 6 MCU. It is capable of controlling existing appliances using voice commands. It is compatible with appliances that can be controlled via infrared (IR) remote control using NEC protocol.
 
-
-[View this README on GitHub.](https://github.com/Infineon/mtb-example-hal-hello-world)
-
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMjM1NDEiLCJTcGVjIE51bWJlciI6IjAwMi0yMzU0MSIsIkRvYyBUaXRsZSI6IkhBTDogSGVsbG8gd29ybGQiLCJyaWQiOiJraGF0cmluYXZpbmsiLCJEb2MgdmVyc2lvbiI6IjQuMi4wIiwiRG9jIExhbmd1YWdlIjoiRW5nbGlzaCIsIkRvYyBEaXZpc2lvbiI6Ik1DRCIsIkRvYyBCVSI6IklDVyIsIkRvYyBGYW1pbHkiOiJQU09DIn0=)
 
 ## Requirements
 
 - [ModusToolbox&trade; software](https://www.infineon.com/modustoolbox) v3.0 or later (tested with v3.0)
 - Programming language: C
-- Associated parts: All [PSoC&trade; 6 MCU](https://www.infineon.com/PSoC6) parts, [XMC7000 MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-industrial-microcontroller-based-on-arm-cortex-m/)
-- PSoC&trade; 6 board support package (BSP) minimum required version: 4.0.0 or XMC7200 evaluation kit BSP minimum required version: 1.0.0
+- Associated parts: All [PSoC&trade; 6 MCU](https://www.infineon.com/PSoC6) parts
+- PSoC&trade; 6 board support package (BSP) minimum required version: 4.0.0
 
 
 ## Supported toolchains (make variable 'TOOLCHAIN')
 
 - GNU Arm&reg; embedded compiler v10.3.1 (`GCC_ARM`) - Default value of `TOOLCHAIN`
-- Arm&reg; compiler v6.16 (`ARM`)
-- IAR C/C++ compiler v9.30.1 (`IAR`)
 
 
 ## Supported kits (make variable 'TARGET')
 
-- [PSoC&trade; 6 Wi-Fi Bluetooth&reg; prototyping kit](https://www.infineon.com/CY8CPROTO-062-4343W) (`CY8CPROTO-062-4343W`) – Default value of `TARGET`
-- [PSoC&trade; 6 Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CY8CKIT-062-WIFI-BT) (`CY8CKIT-062-WIFI-BT`)
-- [PSoC&trade; 6 Bluetooth&reg; LE pioneer kit](https://www.infineon.com/CY8CKIT-062-BLE) (`CY8CKIT-062-BLE`)
-- [PSoC&trade; 6 Bluetooth&reg; LE prototyping kit](https://www.infineon.com/CY8CPROTO-063-BLE) (`CY8CPROTO-063-BLE`)
-- [PSoC&trade; 62S2 Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CY8CKIT-062S2-43012) (`CY8CKIT-062S2-43012`)
-- [PSoC&trade; 62S1 Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CYW9P62S1-43438EVB-01) (`CYW9P62S1-43438EVB-01`)
-- [PSoC&trade; 62S1 Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CYW9P62S1-43012EVB-01) (`CYW9P62S1-43012EVB-01`)
-- [PSoC&trade; 62S3 Wi-Fi Bluetooth&reg; prototyping kit](https://www.infineon.com/CY8CPROTO-062S3-4343W) (`CY8CPROTO-062S3-4343W`)
-- [PSoC&trade; 64 "Secure Boot" Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CY8CKIT-064B0S2-4343W) (`CY8CKIT-064B0S2-4343W`)
-- [PSoC&trade; 64 Standard Secure - AWS Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CY8CKIT-064S0S2-4343W) (`CY8CKIT-064S0S2-4343W`)
-- [PSoC&trade; 62S4 pioneer kit](https://www.infineon.com/CY8CKIT-062S4) (`CY8CKIT-062S4`)
-- [PSoC&trade; 62S2 evaluation kit](https://www.infineon.com/CY8CEVAL-062S2) (`CY8CEVAL-062S2`, `CY8CEVAL-062S2-LAI-4373M2`, `CY8CEVAL-062S2-MUR-43439M2`, `CY8CEVAL-062S2-LAI-43439M2`)
-- [PSoC&trade; 64 "Secure Boot" prototyping kit](https://www.infineon.com/CY8CPROTO-064B0S3) (`CY8CPROTO-064B0S3`)
-- [PSoC&trade; 64 "Secure Boot" prototyping kit](https://www.infineon.com/CY8CPROTO-064S1-SB) (`CY8CPROTO-064S1-SB`)
-- [XMC7200 evaluation kit](https://www.infineon.com/KIT_XMC72_EVK) (`KIT_XMC72_EVK`)
+- [PSoC&trade; 62S2 Wi-Fi Bluetooth&reg; pioneer kit](https://www.infineon.com/CY8CKIT-062S2-43012) (`CY8CKIT-062S2-43012`) – Default value of `TARGET`
+
 
 ## Hardware setup
 
-This example uses the board's default configuration. See the kit user guide to ensure that the board is configured correctly.
+The code example rquires a shield with PDM microphones - `CY8CKIT-028-SENSE` shield or `CY8CKIT-028-TFT` shield.
 
-**Note:** The PSoC&trade; 6 Bluetooth&reg; LE pioneer kit (CY8CKIT-062-BLE) and the PSoC&trade; 6 Wi-Fi Bluetooth&reg; pioneer kit (CY8CKIT-062-WIFI-BT) ship with KitProg2 installed. The ModusToolbox&trade; software requires KitProg3. Before using this code example, make sure that the board is upgraded to KitProg3. The tool and instructions are available in the [Firmware Loader](https://github.com/Infineon/Firmware-loader) GitHub repository. If you do not upgrade, you will see an error like "unable to find CMSIS-DAP device" or "KitProg firmware is out of date".
+Apart from the PDM microphone, this application requires an infrared (IR) transmitter in series with an appropriate current limitting resistor across the pins `IO0` and `GND` on the *CY8CKIT-062S2-43012* board.
+
+This example uses the board's default configuration. See the kit user guide to ensure that the board is configured correctly.
 
 
 ## Software setup
-
-Install a terminal emulator if you do not have one. Instructions in this document use [Tera Term](https://ttssh2.osdn.jp/index.html.en).
 
 This example requires no additional software or tools.
 
@@ -159,88 +140,17 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 </details>
 
 
-## Provisioning steps (Only required for Secured kits)
-
-If you are using one of the PSoC&trade; 64 Secured kits, then the PSoC&trade; 64 device must be provisioned with keys and policies before being programmed. Do the following instructions depending on your kit:
-
-**Note:** The KitProg3 must be in DAPLink mode for performing this section. Press the **Mode** button on the kit until the Status LED blinks fast. In addition, ensure that the J26 jumper is open.
-
-<details><summary><b> If using PSoC&trade; 64 "Standard Secure" kit(`CY8CKIT-064S0S2-4343W`) </b></summary>
-
-
-   1. Navigate to the *_<mtb_shared>/trusted-firmware-m/< release tag >/security/_* folder in the modus shell.
-
-   2. Run the following command.
-
-      ```
-      cysecuretools --target CY8CKIT-064S0S2-4343W init
-      ```
-   
-   3. Generate new keys to sign the image. Run the following command:
-
-      ```
-      cysecuretools --target CY8CKIT-064S0S2-4343W -p policy/policy_multi_CM0_CM4_tfm.json create-keys
-      ```
-
-   4. Provision the device. Run the following command:
-
-      ```
-      cysecuretools --target CY8CKIT-064S0S2-4343W -p policy/policy_multi_CM0_CM4_tfm.json provision-device
-      ```
-
-      **Note:** If your device is already provisioned, then use the following command:
-
-      ```
-      cysecuretools --target CY8CKIT-064S0S2-4343W -p policy/policy_multi_CM0_CM4_tfm.json re-provision-device
-      ```
-
-</details>
-
-<details><summary><b>  If using one of PSoC&trade; 64 "Secure Boot" kits </b></summary>
-
-
-   If you are using the `CY8CKIT-064B0S2-4343W` kit, do the following steps. See ["Secure Boot" SDK user guide](https://www.infineon.com/documentation/software-and-drivers/psoc-64-secure-mcu-secure-boot-sdk-user-guide) to know how to provision other PSoC&trade; 64 Secured kits. 
-
-   1. Navigate to the *_<Application_Name>_* folder in the modus shell.
-
-   2. Run the following command:
-
-      ```
-      cysecuretools --target CY8CKIT-064B0S2-4343W init
-      ```
-   
-   3. Generate new keys to sign the image. Run the following command:
-
-      ```
-      cysecuretools --target CY8CKIT-064B0S2-4343W -p policy/policy_single_CM0_CM4_swap.json create-keys
-      ```
-
-   4. Provision the device. Run the following command:
-
-      ```
-      cysecuretools --target CY8CKIT-064B0S2-4343W -p policy/policy_single_CM0_CM4_swap.json provision-device
-      ```
-
-      **Note:** If your device is provisioned earlier, then use the following command:
-
-      ```
-      cysecuretools --target CY8CKIT-064B0S2-4343W -p policy/policy_single_CM0_CM4_swap.json re-provision-device
-      ```
-
-</details>
-
-
-
 ## Operation
 
+1. Connect the `CY8CKIT-028-SENSE` or `CY8CKIT-028-TFT` shield to the *CY8CKIT-062S2-43012* kit.
 
-1. If using a PSoC&trade; 64 "Secure" MCU kit, follow the steps mentioned in [Provisioning steps](#provisioning-steps-only-required-for-secured-kits).
+2. Interface the IR transmitter LED in series with an appropriate current limitting resistor across the pins `IO0` and `GND` on the *CY8CKIT-062S2-43012* kit.
 
-2. Connect the board to your PC using the provided USB cable through the KitProg3 USB connector.
+3. Connect the board to your PC using the provided USB cable through the KitProg3 USB connector.
 
-3. Open a terminal program and select the KitProg3 COM port. Set the serial port parameters to 8N1 and 115200 baud.
+4. Place the output of the *"MATLAB Coder"* in the folder `hmm-gmm-speech-recognition-psoc6\gmm_hmm`. 
 
-4. Program the board using one of the following:
+5. Program the board using one of the following:
 
    <details><summary><b>Using Eclipse IDE for ModusToolbox&trade; software</b></summary>
 
@@ -262,14 +172,9 @@ If you are using one of the PSoC&trade; 64 Secured kits, then the PSoC&trade; 64
       ```
    </details>
 
-5. After programming, the application starts automatically. Confirm that "HAL: Hello World! Example" is displayed on the UART terminal.
+6. After programming, the application starts automatically.
 
-
-   **Figure 1. Terminal output on program startup**
-
-   ![](images/terminal-hello-world.png)
-
-6. Confirm that the kit LED blinks at approximately 1 Hz.
+7. The hardware is now ready to receive voice commands and control the appliance over IR NEC protocol.
 
 
 ## Debugging
@@ -278,19 +183,6 @@ You can debug the example to step through the code. In the IDE, use the **\<Appl
 
 **Note:** **(Only while debugging)** On the CM4 CPU, some code in `main()` may execute before the debugger halts at the beginning of `main()`. This means that some code executes twice – once before the debugger stops execution, and again after the debugger resets the program counter to the beginning of `main()`. See [KBA231071](https://community.infineon.com/docs/DOC-21143) to learn about this and for the workaround.
 
-
-## Design and implementation
-
-### Resources and settings
-
-**Table 1. Application resources**
-
- Resource  |  Alias/object     |    Purpose
- :-------- | :-------------    | :------------
- UART (HAL)|cy_retarget_io_uart_obj| UART HAL object used by retarget-io for the Debug UART port
- GPIO (HAL)    | CYBSP_USER_LED     | User LED
-
-<br />
 
 ## Related resources
 
@@ -307,7 +199,6 @@ Tools  | [Eclipse IDE for ModusToolbox&trade; software](https://www.infineon.com
 
 ## Other resources
 
-
 Infineon provides a wealth of data at www.infineon.com to help you select the right device, and quickly and effectively integrate it into your design.
 
 For PSoC&trade; 6 MCU devices, see [How to design with PSoC&trade; 6 MCU - KBA223067](https://community.infineon.com/docs/DOC-14644) in the Infineon Developer community.
@@ -316,21 +207,12 @@ For PSoC&trade; 6 MCU devices, see [How to design with PSoC&trade; 6 MCU - KBA22
 ## Document history
 
 
-Document title: *CE223541* - *HAL: Hello world*
+Document title: *HMM-GMM based Speech Recognition on PSoC&trade; 6 MCU*
 
  Version | Description of change
  ------- | ---------------------
- 1.0.0   | New code example
- 1.1.0   | Updated to support ModusToolbox&trade; software v2.1, add new kits<br /> Cosmetic changes to code
- 1.1.1   | Minor documentation updates
- 2.0.0   | Major update to support ModusToolbox&trade; software v2.2, added support for new kits<br /> This version is not backward compatible with ModusToolbox&trade; software v2.1
- 2.0.1   | Minor documentation updates, added feedback link
- 2.1.0   | Added support for new kits 
- 2.2.0   | Added support for new kits 
- 3.0.0   | Updated to BSP v3.X and added support for new kit 
- 4.0.0   | Major update to support ModusToolbox&trade; v3.0. This version is not backward compatible with previous versions of ModusToolbox&trade;. <br /> Added support for KIT_XMC72_EVK & PSoC&trade; 64 Standard Secure Kit
- 4.1.0   | Added support for CY8CPROTO-064B0S3 and CY8CPROTO-064S1-SB
- 4.2.0   | Added support for CY8CEVAL-062S2-LAI-43439M2
+ 1.0.0   | Initial version of the example
+
 <br>
 
 
