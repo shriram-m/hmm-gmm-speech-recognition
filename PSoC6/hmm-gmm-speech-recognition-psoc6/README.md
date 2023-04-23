@@ -23,7 +23,7 @@ This example demonstrates a smart remote control application using a HMM-GMM bas
 
 ## Hardware setup
 
-The code example rquires a shield with PDM microphones - `CY8CKIT-028-SENSE` shield or `CY8CKIT-028-TFT` shield.
+The code example requires a shield with PDM microphones - `CY8CKIT-028-SENSE` shield or `CY8CKIT-028-TFT` shield.
 
 Apart from the PDM microphone, this application requires an infrared (IR) transmitter in series with an appropriate current limitting resistor across the pins `IO0` and `GND` on the *CY8CKIT-062S2-43012* board.
 
@@ -148,7 +148,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
 3. Connect the board to your PC using the provided USB cable through the KitProg3 USB connector.
 
-4. Place the output of the *"MATLAB Coder"* in the folder `hmm-gmm-speech-recognition-psoc6\gmm_hmm`. 
+4. Place the output of the *"MATLAB Coder"* in the path `hmm-gmm-speech-recognition-psoc6/gmm_hmm/`. 
 
 5. Program the board using one of the following:
 
